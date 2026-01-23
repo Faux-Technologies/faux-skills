@@ -22,3 +22,6 @@ build/
 # Environment
 .env
 .env.local
+
+# Experiments (local only)
+experiments/

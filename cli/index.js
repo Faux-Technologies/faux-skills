@@ -14,6 +14,7 @@ import { uninstall } from './commands/uninstall.js';
 import { list } from './commands/list.js';
 import { validate } from './commands/validate.js';
 import { sync } from './commands/sync.js';
+import { bundle } from './commands/bundle.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,6 +45,7 @@ function showHelp() {
 
   log('  Commands:', 'bright');
   log('    install [--target <dir>]   Install skills to target directory');
+  log('    bundle --target <dir>      Sync skills to app bundle (with manifest)');
   log('    uninstall                  Remove installed skills');
   log('    list                       List installed skills');
   log('    validate [path]            Validate skill files');
@@ -52,6 +54,7 @@ function showHelp() {
   log('  Options:', 'bright');
   log('    --target, -t <dir>   Target directory for installation');
   log('    --platform, -p       Target platform (claude-code, codex, universal)');
+  log('    --force, -f          Force update even if unchanged (bundle command)');
   log('    --help, -h           Show this help message');
   log('    --version, -v        Show version number\n');
 
@@ -63,18 +66,18 @@ function showHelp() {
   log('  Examples:', 'bright');
   log('    faux-skills install', 'cyan');
   log('    faux-skills install --target ~/.agent/skills', 'cyan');
+  log('    faux-skills bundle --target ./App/Resources/skills', 'cyan');
+  log('    faux-skills bundle --target ./App/Resources/skills --force', 'cyan');
   log('    faux-skills list', 'cyan');
   log('    faux-skills validate skills/figma-design-system\n', 'cyan');
 
   log('  More info: https://github.com/faux-technologies/faux-skills\n', 'dim');
 }
 
-function showVersion() {
-  const packageJson = JSON.parse(
-    await import('fs').then(fs =>
-      fs.promises.readFile(path.join(__dirname, '..', 'package.json'), 'utf-8')
-    )
-  );
+async function showVersion() {
+  const fs = await import('fs');
+  const content = await fs.promises.readFile(path.join(__dirname, '..', 'package.json'), 'utf-8');
+  const packageJson = JSON.parse(content);
   log(`faux-skills v${packageJson.version}`);
 }
 
@@ -84,6 +87,7 @@ function parseArgs(args) {
     target: null,
     platform: null,
     path: null,
+    force: false,
     help: false,
     version: false,
   };
@@ -95,6 +99,8 @@ function parseArgs(args) {
       parsed.help = true;
     } else if (arg === '--version' || arg === '-v') {
       parsed.version = true;
+    } else if (arg === '--force' || arg === '-f') {
+      parsed.force = true;
     } else if (arg === '--target' || arg === '-t') {
       parsed.target = args[++i];
     } else if (arg === '--platform' || arg === '-p') {
@@ -130,6 +136,10 @@ async function main() {
     switch (args.command) {
       case 'install':
         await install({ target: args.target, platform: args.platform, skillsDir });
+        break;
+
+      case 'bundle':
+        await bundle({ target: args.target, skillsDir, force: args.force });
         break;
 
       case 'uninstall':
