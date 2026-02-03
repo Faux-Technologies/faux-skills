@@ -54,6 +54,26 @@ Always verify your work:
 
 ---
 
+## Design Thinking (Before You Create)
+
+Commit to a BOLD aesthetic direction before creating anything:
+
+- **Purpose**: What problem does this interface solve? Who uses it?
+- **Tone**: Pick a clear direction — minimalist, maximalist, retro-futuristic, luxury, playful, editorial, brutalist, art deco, soft, industrial
+- **Differentiation**: What makes this UNFORGETTABLE?
+
+**NEVER create generic AI aesthetics:**
+- Avoid Inter/Roboto/Arial everywhere — choose distinctive fonts
+- Avoid purple gradients on white — develop unique color identity
+- Avoid uniform spacing — create visual rhythm
+- Avoid flat, lifeless surfaces — add depth through shadows and gradients
+
+The goal is not just structurally correct designs — it's designs that are **visually striking and memorable**.
+
+See `references/design-aesthetics.md` for full guidelines.
+
+---
+
 ## Core Tool: create_from_schema
 
 This is the most powerful tool. Use it for almost everything.
@@ -282,6 +302,7 @@ For detailed documentation, see the references/ folder:
 - `variable-bindings.md` — @Variable syntax, multi-mode variables, scopes
 - `component-patterns.md` — ComponentSet matrix mode, $expose, $exposeInstance
 - `sizing-rules.md` — hug-contents, fill-parent, constraint chains
+- `design-aesthetics.md` — Visual design principles, typography, color, anti-patterns
 - `troubleshooting.md` — Common failures and error recovery
 - `prototyping.md` — connect_nodes, animations, batch wiring
 - `query-selectors.md` — CSS selector syntax for query_nodes
