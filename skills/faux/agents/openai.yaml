@@ -1,0 +1,22 @@
+interface:
+  display_name: "Faux - AI Figma Design"
+  short_description: "Design in Figma using AI with 71 tools for components, tokens, and production-quality screens"
+  brand_color: "#c9ff4d"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "create_from_schema"
+      description: "Create Figma components from declarative JSON schemas with variable bindings"
+      transport: "streamable_http"
+      url: "https://mcp.faux.design/mcp"
+    - type: "mcp"
+      value: "get_design_system"
+      description: "Get all design tokens, variables, and text styles from the current Figma file"
+      transport: "streamable_http"
+      url: "https://mcp.faux.design/mcp"
+    - type: "mcp"
+      value: "create_variables"
+      description: "Create design tokens with multi-mode support (Light/Dark themes)"
+      transport: "streamable_http"
+      url: "https://mcp.faux.design/mcp"

@@ -1,0 +1,5 @@
+name = "faux"
+description = "AI-powered Figma design with Atomic Design methodology. 71 tools for creating components, design tokens, and production-quality screens."
+icon = "paintbrush"
+brand_color = "#c9ff4d"
+default_prompt = "Design a Figma component using faux"
