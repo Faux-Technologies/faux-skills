@@ -9,7 +9,7 @@ description: |
   - "recreate from web", "copy from website", "extract from page"
   - "variants", "component set", "component properties"
   - "auto-layout", "responsive"
-  Requires Figmatic MCP connection to Figma Desktop.
+  Requires faux MCP connection to Figma Desktop.
   For web extraction, also requires Faux DevTools MCP connection to browser.
 
 # Claude Code
@@ -29,30 +29,89 @@ allowed-tools:
   - mcp__faux-devtools__list_pages
   - mcp__faux-devtools__select_page
 
-  # FIGMATIC MCP v2 - Core Tools (12 tools, 93% token reduction)
-  # Meta Tools (Tier 0) - Always loaded for tool discovery
-  - mcp__figmatic__search_tools
-  - mcp__figmatic__describe_tools
-  - mcp__figmatic__discover_commands
+  # FAUX MCP - Read Tools (18 tools)
+  - mcp__faux__get_design_system
+  - mcp__faux__get_screenshot
+  - mcp__faux__get_node_details
+  - mcp__faux__get_page_structure
+  - mcp__faux__find_nodes_by_name
+  - mcp__faux__query_nodes
+  - mcp__faux__get_components
+  - mcp__faux__get_component_structure
+  - mcp__faux__get_component_properties
+  - mcp__faux__get_instance_properties
+  - mcp__faux__get_nested_instance_tree
+  - mcp__faux__get_variables
+  - mcp__faux__get_variable_collections
+  - mcp__faux__get_text_segments
+  - mcp__faux__get_selection
+  - mcp__faux__get_viewport
+  - mcp__faux__get_connections
+  - mcp__faux__get_flow_starting_points
 
-  # Read Tools (Tier 1) - Essential queries
-  - mcp__figmatic__get_design_system
-  - mcp__figmatic__get_screenshot
-  - mcp__figmatic__get_node_details
-  - mcp__figmatic__find_nodes_by_name
+  # FAUX MCP - Write Tools (49 tools)
+  - mcp__faux__create_from_schema
+  - mcp__faux__create_variables
+  - mcp__faux__create_variable_collection
+  - mcp__faux__create_text_styles
+  - mcp__faux__modify_nodes
+  - mcp__faux__delete_node
+  - mcp__faux__clone_node
+  - mcp__faux__resize_node
+  - mcp__faux__flatten_node
+  - mcp__faux__move_nodes
+  - mcp__faux__reorder_children
+  - mcp__faux__add_children
+  - mcp__faux__wrap_in_container
+  - mcp__faux__align_nodes
+  - mcp__faux__group_nodes
+  - mcp__faux__ungroup_nodes
+  - mcp__faux__set_constraints
+  - mcp__faux__bind_variables
+  - mcp__faux__update_variable
+  - mcp__faux__delete_variable
+  - mcp__faux__delete_variable_collection
+  - mcp__faux__set_variable_mode
+  - mcp__faux__apply_gradient_fill
+  - mcp__faux__convert_to_component
+  - mcp__faux__add_component_property
+  - mcp__faux__edit_component_property
+  - mcp__faux__delete_component_property
+  - mcp__faux__expose_as_component_property
+  - mcp__faux__add_variant_to_component_set
+  - mcp__faux__create_instance
+  - mcp__faux__create_multiple_instances
+  - mcp__faux__set_instance_properties
+  - mcp__faux__swap_component
+  - mcp__faux__detach_instance
+  - mcp__faux__import_image_from_url
+  - mcp__faux__create_image_component
+  - mcp__faux__create_image_components
+  - mcp__faux__apply_images
+  - mcp__faux__search_icons
+  - mcp__faux__create_icon_component
+  - mcp__faux__create_icons
+  - mcp__faux__connect_nodes
+  - mcp__faux__update_connections
+  - mcp__faux__disconnect_nodes
+  - mcp__faux__set_reactions
+  - mcp__faux__scroll_to_nodes
+  - mcp__faux__set_viewport_center
+  - mcp__faux__set_selection
+  - mcp__faux__show_status
+  - mcp__faux__clear_status
 
-  # Write Tools (Tier 1) - Essential creation/modification
-  - mcp__figmatic__create_from_schema
-  - mcp__figmatic__execute_workflow
-  - mcp__figmatic__batch_modify_nodes
-  - mcp__figmatic__batch_bind_variables
-  - mcp__figmatic__create_instance
+  # FAUX MCP - Meta Tools (4 tools)
+  - mcp__faux__execute_workflow
+  - mcp__faux__execute_figma_script
+  - mcp__faux__signal_work_start
+  - mcp__faux__signal_work_end
 
 # Codex
 metadata:
   short-description: AI-powered Figma design automation with Atomic Design
   category: figma
-  version: 3.0.0
+  version: 4.0.0
 ---
 
 # Faux - Figma Design Automation
@@ -63,40 +122,43 @@ AI-powered Figma design automation using **Atomic Design** methodology.
 
 ---
 
-## Figmatic MCP v2 Tool Architecture
+## Faux MCP Tool Architecture
 
-**12 tools instead of 77** - 93% token reduction through tiered loading.
+**71 tools** organized into Read, Write, and Meta categories. Most tools are top-level; additional operations are available via `execute_workflow`.
 
-### Available Tools
+### Core Tools (Most Used)
 
-| Tier | Tool | Purpose |
-|------|------|---------|
-| **0 (Meta)** | `search_tools` | Find tools by query |
-| | `describe_tools` | Get full schemas for tools |
-| | `discover_commands` | List 75+ workflow commands |
-| **1 (Read)** | `get_design_system` | Variables, text/paint/effect styles |
-| | `get_screenshot` | Capture node as PNG |
+| Category | Tool | Purpose |
+|----------|------|---------|
+| **Read** | `get_design_system` | Variables, text/paint/effect styles, library variables |
+| | `get_screenshot` | Capture node as PNG/JPG |
 | | `get_node_details` | Node properties, dimensions, bindings |
+| | `get_page_structure` | Canvas structure overview |
 | | `find_nodes_by_name` | Search by name pattern, type filter |
-| **1 (Write)** | `create_from_schema` | Declarative UI from JSON |
-| | `execute_workflow` | Run 75+ commands in sequence |
-| | `batch_modify_nodes` | Modify multiple nodes at once |
-| | `batch_bind_variables` | Bind variables to multiple nodes |
+| | `query_nodes` | CSS-like selector queries |
+| | `get_components` | List available components |
+| **Write** | `create_from_schema` | Declarative UI creation from JSON schema |
+| | `create_variables` | Create design token variables |
+| | `create_text_styles` | Create typography styles |
+| | `modify_nodes` | Modify multiple node properties |
+| | `bind_variables` | Bind variables to node properties |
 | | `create_instance` | Create component instance |
+| | `create_icons` | Batch create icon components from Iconify |
+| | `connect_nodes` | Wire prototype connections |
+| **Meta** | `execute_workflow` | Run multiple commands in sequence |
+| | `execute_figma_script` | Run raw Figma Plugin API code |
 
 ### The `execute_workflow` Pattern
 
-Many operations (icons, styles, variables, etc.) are available via `execute_workflow`:
+Operations not available as top-level tools can be run via `execute_workflow`. Use **snake_case** command names.
 
 ```javascript
-// Use discover_commands to find available commands
-discover_commands({ search: "icon" })
-// Returns: batchCreateIcons, createIconComponent, searchIcons, etc.
-
-// Then call via execute_workflow
 execute_workflow({
   commands: [
-    { command: "batchCreateIcons", params: {...} }
+    { command: "create_icons", params: {
+      icons: [{ iconName: "lucide:star" }],
+      createComponentSet: true
+    }}
   ]
 })
 ```
@@ -105,14 +167,15 @@ execute_workflow({
 
 | Category | Commands |
 |----------|----------|
-| **Icons** | `searchIcons`, `createIconComponent`, `batchCreateIcons` |
-| **Variables** | `createVariable`, `updateVariable`, `deleteVariable`, `bindVariable` |
-| **Styles** | `createTextStyle`, `batchCreateTextStyles`, `applyTextStyle` |
-| **Components** | `createComponent`, `convertToComponent`, `addComponentProperty` |
-| **Instances** | `createInstance`, `swapComponent`, `setInstanceProperties` |
-| **Queries** | `getComponents`, `getPageChildren`, `getNodeById` |
-
-Use `discover_commands({ category: "..." })` to explore each category.
+| **Icons** | `search_icons`, `create_icon_component`, `create_icons` |
+| **Variables** | `create_variable_collection`, `update_variable`, `delete_variable`, `set_variable_mode` |
+| **Styles** | `create_text_styles` |
+| **Components** | `convert_to_component`, `add_component_property`, `edit_component_property`, `expose_as_component_property`, `add_variant_to_component_set` |
+| **Instances** | `create_instance`, `create_multiple_instances`, `swap_component`, `set_instance_properties`, `detach_instance` |
+| **Layout** | `resize_node`, `clone_node`, `wrap_in_container`, `align_nodes`, `group_nodes`, `reorder_children` |
+| **Queries** | `get_components`, `get_component_structure`, `get_component_properties`, `get_instance_properties` |
+| **Images** | `import_image_from_url`, `apply_images`, `create_image_component` |
+| **Prototype** | `connect_nodes`, `update_connections`, `disconnect_nodes`, `get_connections` |
 
 ---
 
@@ -206,7 +269,7 @@ Before touching any tool, mentally decompose the request:
 ┌─────────────────────────────────────────┐
 │ 3. find_nodes_by_name (FRAME/SECTION)   │
 │    └── Where to place new components    │
-│    OR: execute_workflow + getPageChildren
+│    OR: execute_workflow + get_page_structure
 └─────────────────────────────────────────┘
 ```
 
@@ -272,7 +335,7 @@ Tokens Collection (multi-mode - semantic aliases):
 
 **Rule:** Components bind to Tokens, NEVER to Primitives directly.
 
-**Via:** `execute_workflow` → `createVariable`, `createTextStyle` commands
+**Via:** `create_variables` and `create_text_styles` tools
 
 ### Level 1: Atoms
 
@@ -286,7 +349,7 @@ Smallest reusable units. **Create these FIRST.**
 | `Badge` | Frame + Text | Count, Variant |
 | `Divider` | Line or Frame | Orientation |
 
-**Tool:** `execute_workflow` + `batchCreateIcons`, or `create_from_schema` + `convertToComponent: true`
+**Tool:** `create_icons` for icon components, or `create_from_schema` with `convertToComponent: true`
 
 ### Level 2: Molecules
 
@@ -434,7 +497,7 @@ RIGHT (composable):
 │   └── find_nodes_by_name({ nodeType: "COMPONENT" })
 │
 ├── Step 2: Create missing atoms
-│   └── execute_workflow + batchCreateIcons, or create_from_schema
+│   └── execute_workflow + create_icons, or create_from_schema
 │   └── NOW these exist as components!
 │
 ├── Step 3: Create molecules
@@ -457,9 +520,11 @@ After each build step, the components you created become available:
 
 ```javascript
 // Step 2: Create atom
-execute_workflow({ commands: [
-  { command: "batchCreateIcons", params: { icons: [{ iconName: "lucide:star", componentName: "Icon/Star" }] } }
-]})
+create_icons({
+  icons: [{ iconName: "lucide:star" }],
+  createComponentSet: true,
+  componentSetName: "Icons"
+})
 // NOW Icon/Star exists!
 
 // Step 3: Create molecule - USE the atom you just created
@@ -507,10 +572,10 @@ Creating atom components?
           frame      nested    existing
    │         │         │         │
    ▼         ▼         ▼         ▼
-execute_  create_   create_   execute_
-workflow  from_     from_     workflow
-(batch    schema    schema +  (convert
-CreateIcons)        convert   ToComponent)
+create_  create_   create_   convert_
+icons    from_     from_     to_
+         schema    schema +  component
+                   convert
 ```
 
 ### Build Molecules Tool Selection
@@ -524,7 +589,7 @@ Creating molecule from atoms?
 │ ├── Use $instance for atom references   │
 │ ├── convertToComponent: true            │
 │ └── Then execute_workflow →             │
-│     addComponentProperty                │
+│     add_component_property                │
 └─────────────────────────────────────────┘
 ```
 
@@ -569,15 +634,15 @@ Component: [Organism]
 └── Action        (INSTANCE_SWAP) - Swappable button/link
 ```
 
-### Binding Sequence (via execute_workflow)
+### Binding Sequence
 
 ```
-1. Create component structure (create_from_schema)
-2. addComponentProperty (create properties on component)
-3. bindTextToProperty (connect text nodes)
-4. bindPropertyReference (connect visibility)
-5. setInstanceExposure (enable instance swaps)
+1. Create component structure (create_from_schema with convertToComponent: true)
+2. add_component_property (create properties on component)
+3. expose_as_component_property (connect text, visibility, instance swaps)
 ```
+
+Alternatively, use `$expose` and `$exposeInstance` directly in `create_from_schema` schemas to handle property exposure declaratively during creation.
 
 ---
 
@@ -616,7 +681,8 @@ Need variants?
        ▼
 ┌─────────────────────────┐
 │ execute_workflow →      │
-│ combineAsVariants       │
+│ Use ComponentSet type    │
+│ in create_from_schema   │
 │ └── Naming: State=X     │
 └─────────────────────────┘
 ```
@@ -752,7 +818,7 @@ create_from_schema({ /* giant card schema */ })
 // Oops, repeated patterns aren't components...
 
 // GOOD: Bottom-up
-execute_workflow + batchCreateIcons  // Atoms first
+create_icons(...)               // Atoms first
 create [Molecule] component    // Then molecules
 create [Molecule] component
 create [Organism]              // Finally organism
@@ -770,12 +836,12 @@ create [Organism]              // Finally organism
 ### 6. Skipping Structural Audit
 ```javascript
 // BAD: Apply variables without understanding hierarchy
-batch_bind_variables({ bindings: [...] })  // Hope it works!
+bind_variables({ bindings: [...] })  // Hope it works!
 
 // GOOD: Audit first, then bind
 get_node_details({ nodeId })  // What does this node have?
 execute_workflow({ commands: [
-  { command: "getNodeTree", params: { nodeId } }
+  { command: "get_nested_instance_tree", params: { nodeId } }
 ]})  // What's the hierarchy?
 // List all filled nodes
 // Verify each should have a fill
@@ -986,20 +1052,20 @@ STEP 2: DECOMPOSE
 └── Only build what's missing
 
 STEP 3: BUILD ATOMS (if missing)
-├── execute_workflow + batchCreateIcons for icons
+├── create_icons for icon components
 ├── create_from_schema + convertToComponent
 └── Keep atoms generic and context-free
 
 STEP 4: BUILD MOLECULES (if missing)
 ├── Compose from atom instances ($instance)
 ├── create_from_schema + convertToComponent
-├── execute_workflow → addComponentProperty
-└── execute_workflow → setInstanceExposure for swaps
+├── add_component_property for content
+└── expose_as_component_property for swaps
 
 STEP 5: BUILD ORGANISM
 ├── Compose entirely from molecule/atom instances
 ├── NO inline patterns - everything is $instance
-├── execute_workflow → addComponentProperty for content
+├── add_component_property for content
 └── Surface key molecule properties
 
 RESULT:
@@ -1018,7 +1084,7 @@ When no workflow command exists, use `execute_workflow` with raw script:
 ```javascript
 execute_workflow({
   commands: [
-    { command: "executeFigmaScript", params: { script: `...` } }
+    { command: "execute_figma_script", params: { script: `...` } }
   ]
 })
 ```
@@ -1042,7 +1108,7 @@ When using escape hatch, annotate:
 // Why needed: [Why existing commands don't cover this]
 execute_workflow({
   commands: [
-    { command: "executeFigmaScript", params: { script: `...` } }
+    { command: "execute_figma_script", params: { script: `...` } }
   ]
 })
 ```
@@ -1059,4 +1125,4 @@ See `references/` folder for detailed guides:
 
 ---
 
-*Faux Skill v3.0 - Atomic Design Methodology (Figmatic MCP v2)*
+*Faux Skill v4.0 - Atomic Design Methodology (Faux MCP — 71 tools)*
