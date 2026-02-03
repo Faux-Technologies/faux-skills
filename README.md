@@ -1,201 +1,135 @@
 # faux-skills
 
-Universal AI agent skills for Figma design automation. Works with **Claude Code**, **Codex**, **Cursor**, **Windsurf**, and any platform supporting the [Agent Skills Specification](https://github.com/anthropics/agent-skills).
+AI agent skills for Figma design automation. Works with **Claude Code**, **Codex**, **Cursor**, **Windsurf**, and any platform supporting the [Agent Skills Specification](https://agentskills.io).
 
-## What are Skills?
+## Quick Install
 
-Skills are reusable instruction sets that teach AI agents how to perform specialized tasks. Each skill is a `SKILL.md` file containing:
+```bash
+npx skills add Faux-Technologies/faux-skills
+```
 
-- **YAML frontmatter**: Metadata, triggers, and tool permissions
-- **Markdown body**: Detailed instructions for the agent
-- **References folder**: Additional context files (optional)
+This installs the Faux skill to your AI agent's skills directory.
 
-## Skills Included
+### Targeting Specific Agents
+
+```bash
+# Claude Code
+npx skills add Faux-Technologies/faux-skills -a claude-code
+
+# Codex
+npx skills add Faux-Technologies/faux-skills -a codex
+
+# Cursor
+npx skills add Faux-Technologies/faux-skills -a cursor
+
+# Global install (available to all agents)
+npx skills add Faux-Technologies/faux-skills -g
+```
+
+### List Available Skills
+
+```bash
+npx skills add Faux-Technologies/faux-skills --list
+```
+
+## What's Included
 
 | Skill | Description |
 |-------|-------------|
-| `figma-design-system` | Create and manage design tokens, variables, and styles |
-| `figma-component-builder` | Build production-ready components with properties and variants |
-| `web-to-figma` | Extract web components and recreate them in Figma |
-| `figma-icon-library` | Create icon components from Iconify's 275,000+ icons |
+| `faux` | AI-powered Figma design with 71 tools. Atomic Design workflow: variables → components → screens. |
 
-## Installation
+### Skill Structure
 
-### Quick Install (Recommended)
-
-```bash
-npx faux-skills install
 ```
-
-This installs skills to `~/.claude/skills/` (Claude Code) or `~/.codex/skills/` (Codex).
-
-### With OpenSkills (Universal)
-
-```bash
-# Install openskills globally
-npm install -g openskills
-
-# Install faux-skills
-npx faux-skills install --target ~/.agent/skills
-
-# Load into your AI tool
-openskills load --from ~/.agent/skills
-```
-
-### Manual Installation
-
-```bash
-# Clone the repo
-git clone https://github.com/faux-technologies/faux-skills.git
-
-# Copy skills to your platform's directory
-cp -r faux-skills/skills/* ~/.claude/skills/     # Claude Code
-cp -r faux-skills/skills/* ~/.codex/skills/      # Codex
-cp -r faux-skills/skills/* ~/.agent/skills/      # Universal
-```
-
-## Usage
-
-### CLI Commands
-
-```bash
-# Install skills to default location
-faux-skills install
-
-# Install to specific directory
-faux-skills install --target ~/.agent/skills
-
-# List installed skills
-faux-skills list
-
-# Uninstall skills
-faux-skills uninstall
-
-# Validate skill files
-faux-skills validate
-
-# Sync skills across platforms
-faux-skills sync
-```
-
-### In Your AI Agent
-
-Once installed, skills are automatically discovered. Invoke them by:
-
-1. **Natural language**: "Create a button component with size variants"
-2. **Direct invocation**: `/figma-component-builder`
-3. **Trigger phrases**: "design tokens", "icon library", etc.
-
-## Skill Format
-
-Skills use the universal `SKILL.md` format compatible with all platforms:
-
-```yaml
----
-# Required (all platforms)
-name: skill-name
-description: |
-  What this skill does.
-
-  Use when user mentions:
-  - "trigger phrase 1"
-  - "trigger phrase 2"
-
-  Requires: Prerequisites listed here
-
-# Claude Code specific (Codex ignores)
-allowed-tools:
-  - mcp__faux__*
-  - mcp__faux-devtools__*
-
-# Codex specific (Claude Code ignores)
-metadata:
-  short-description: Brief one-liner
-  category: figma
-  version: 1.0.0
----
-
-# Skill Title
-
-[Markdown instructions for the agent]
+skills/faux/
+├── SKILL.md                 # Core methodology (280 lines)
+└── references/
+    ├── schema-syntax.md     # create_from_schema reference
+    ├── variable-bindings.md # @Variable syntax, multi-mode themes
+    ├── component-patterns.md # ComponentSet, $expose, variants
+    ├── sizing-rules.md      # hug-contents, fill-parent
+    ├── troubleshooting.md   # Common failures & fixes
+    ├── prototyping.md       # connect_nodes, animations
+    ├── query-selectors.md   # CSS selector syntax
+    └── tool-catalog.md      # All 71 tools
 ```
 
 ## Prerequisites
 
-- **Faux MCP Server**: Configured in your AI tool
-- **Figma Desktop**: With "AI Agent Bridge" plugin running
-- **Node.js**: v18+ for CLI
+1. **Faux MCP Server** — Configure in your AI tool's MCP settings:
+   ```json
+   {
+     "mcpServers": {
+       "faux": {
+         "url": "https://mcp.faux.design/mcp"
+       }
+     }
+   }
+   ```
 
-## Directory Structure
+2. **Figma Desktop** — With the Faux plugin running
 
-```
-faux-skills/
-├── cli/                    # CLI tool source
-│   ├── index.js           # Entry point
-│   ├── commands/          # install, uninstall, list, etc.
-│   └── utils/             # Helpers
-├── skills/                 # Skill definitions
-│   ├── figma-design-system/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   ├── figma-component-builder/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   ├── web-to-figma/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   └── figma-icon-library/
-│       ├── SKILL.md
-│       └── references/
-├── templates/              # Skill templates
-│   └── SKILL.template.md
-├── gui/                    # Future: GUI for skill management
-├── package.json
-├── README.md
-└── LICENSE
+See [faux.design/docs/setup](https://faux.design/docs/setup) for complete setup instructions.
+
+## Manual Installation
+
+If you prefer manual installation:
+
+```bash
+# Clone the repo
+git clone https://github.com/Faux-Technologies/faux-skills.git
+
+# Copy to your agent's skills directory
+cp -r faux-skills/skills/faux ~/.claude/skills/     # Claude Code
+cp -r faux-skills/skills/faux ~/.codex/skills/      # Codex
+cp -r faux-skills/skills/faux .cursor/skills/       # Cursor (project-local)
 ```
 
-## Creating Your Own Skills
+## The Faux Workflow
 
-1. Copy the template:
-   ```bash
-   cp templates/SKILL.template.md skills/my-skill/SKILL.md
-   ```
+The skill teaches the **Atomic Design** workflow:
 
-2. Edit the YAML frontmatter and Markdown body
+1. **Orient** — `get_design_system`, `get_page_structure`, `get_components`
+2. **Foundation** — `create_variables`, `create_text_styles`
+3. **Components** — `create_from_schema` with `convertToComponent: true`
+4. **Screens** — `create_from_schema` using `$instance`, `$image`, `@Variable`
+5. **Verify** — `get_screenshot`, `get_node_details`
 
-3. Add reference files if needed:
-   ```
-   skills/my-skill/
-   ├── SKILL.md
-   └── references/
-       ├── examples.md
-       └── patterns.md
-   ```
+### Key Syntax
 
-4. Validate your skill:
-   ```bash
-   faux-skills validate skills/my-skill
-   ```
+```json
+// Variable bindings
+"fill": "@Colors/Primary|#3B82F6"
+
+// Inline icons
+{"$icon": "heart", "size": 24, "color": "@Tokens/Accent|#FF6B5B"}
+
+// Component instances
+{"$instance": "Button", "$variant": {"Style": "Primary"}, "$override": {"Label": "Click"}}
+
+// Sizing
+"width": "fill-parent"    // Fill available space
+"height": "hug-contents"  // Fit to children
+```
 
 ## Cross-Platform Compatibility
 
-The SKILL.md format is designed for maximum compatibility:
+The skill uses the universal [Agent Skills](https://agentskills.io) format:
 
-| Field | Claude Code | Codex | OpenSkills |
-|-------|-------------|-------|------------|
-| `name` | Required | Required | Required |
-| `description` | Required | Required | Required |
-| `allowed-tools` | Used | Ignored | Ignored |
-| `metadata` | Ignored | Used | Used |
+| Platform | Status | Location |
+|----------|--------|----------|
+| Claude Code | ✅ Full support | `~/.claude/skills/` |
+| Codex | ✅ Full support | `~/.codex/skills/` |
+| Cursor | ✅ Full support | `.cursor/skills/` |
+| Windsurf | ✅ Supported | `.windsurf/skills/` |
+| VS Code Copilot | ✅ Supported | `.github/skills/` |
+| Gemini CLI | ✅ Supported | Agent-specific |
 
-Unknown fields are simply ignored by each platform, so you can include all fields in a single file.
+## Related
 
-## Related Projects
-
-- [Faux](https://github.com/faux-technologies/faux) - AI-powered Figma automation
-- [Faux MCP Server](https://github.com/faux-technologies/faux-mcp-server) - 63 Figma tools via MCP
-- [OpenSkills](https://github.com/openskills-dev/openskills) - Universal skills loader
+- [Faux](https://faux.design) — AI-powered Figma design platform
+- [Setup Guide](https://faux.design/docs/setup) — Complete installation instructions
+- [Agent Skills Specification](https://agentskills.io) — The open standard
 
 ## License
 
