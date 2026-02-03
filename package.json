@@ -1,22 +1,11 @@
 {
   "name": "faux-skills",
-  "version": "1.0.0",
-  "description": "Universal AI agent skills for Figma design automation - works with Claude Code, Codex, and OpenSkills",
-  "main": "cli/index.js",
-  "bin": {
-    "faux-skills": "./cli/index.js"
-  },
-  "type": "module",
-  "scripts": {
-    "install-skills": "node cli/index.js install",
-    "uninstall-skills": "node cli/index.js uninstall",
-    "list-skills": "node cli/index.js list",
-    "validate": "node cli/index.js validate",
-    "sync": "node cli/index.js sync"
-  },
+  "version": "5.0.0",
+  "description": "AI agent skills for Figma design automation - works with Claude Code, Codex, Cursor, and 36+ agents",
   "keywords": [
     "claude-code",
     "codex",
+    "cursor",
     "openai",
     "anthropic",
     "ai-skills",
@@ -29,16 +18,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/faux-technologies/faux-skills"
+    "url": "https://github.com/Faux-Technologies/faux-skills"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "files": [
-    "cli/",
-    "skills/",
-    "templates/",
-    "README.md",
-    "LICENSE"
-  ]
+  "homepage": "https://faux.design",
+  "bugs": {
+    "url": "https://github.com/Faux-Technologies/faux-skills/issues"
+  }
 }
