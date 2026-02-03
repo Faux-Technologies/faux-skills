@@ -1,7 +1,7 @@
-# Figmatic Tools Improvement Roadmap
+# Faux Tools Improvement Roadmap
 
 **Date:** 2026-01-22
-**Purpose:** Self-contained document for implementing Figmatic tool improvements based on Figma Plugin API analysis and real-world testing.
+**Purpose:** Self-contained document for implementing Faux tool improvements based on Figma Plugin API analysis and real-world testing.
 
 ---
 
@@ -41,12 +41,12 @@ After real-world testing (recreating web components in Figma) and analyzing the 
 ### Repository Structure
 
 ```
-figmatic-plugin/          → Figma plugin (TypeScript, runs in Figma Desktop)
+faux-plugin/          → Figma plugin (TypeScript, runs in Figma Desktop)
 ├── code.ts               → Main plugin code with Command Registry
 ├── manifest.json         → Plugin manifest
 └── package.json
 
-figmatic-mcp-server/      → MCP server (63+ tools for AI agents)
+faux-mcp-server/      → MCP server (63+ tools for AI agents)
 ├── tools/
 │   ├── read-tools.js     → Query tools (get_*, find_*)
 │   ├── write-tools.js    → Creation tools (create_*, convert_*)
@@ -73,7 +73,7 @@ faux-skills/              → Claude Code skills
          │ MCP Protocol
          ↓
 ┌─────────────────┐
-│  Figmatic MCP   │
+│  Faux MCP   │
 │  Server (63+    │
 │  tools)         │
 └─────────────────┘
@@ -267,7 +267,7 @@ node.inferredAutoLayout
 
 **Implementation:**
 ```javascript
-// In figmatic-plugin/code.ts - Add to Command Registry
+// In faux-plugin/code.ts - Add to Command Registry
 registerCommand('suggestVariableBindings', async (params) => {
   const node = figma.getNodeById(params.nodeId);
   if (!node) throw new Error(`Node not found: ${params.nodeId}`);
@@ -294,7 +294,7 @@ registerCommand('suggestVariableBindings', async (params) => {
 });
 ```
 
-**MCP Tool Definition (figmatic-mcp-server/tools/read-tools.js):**
+**MCP Tool Definition (faux-mcp-server/tools/read-tools.js):**
 ```javascript
 async function suggestVariableBindings(params) {
   const result = await executeInFigma('suggestVariableBindings', {
@@ -362,7 +362,7 @@ async function suggestVariableBindings(params) {
 
 **Implementation:**
 ```javascript
-// In figmatic-plugin/code.ts
+// In faux-plugin/code.ts
 registerCommand('getTextSegments', async (params) => {
   const node = figma.getNodeById(params.nodeId);
   if (!node || node.type !== 'TEXT') {
@@ -428,7 +428,7 @@ registerCommand('getTextSegments', async (params) => {
 
 **Implementation:**
 ```javascript
-// In figmatic-plugin/code.ts
+// In faux-plugin/code.ts
 registerCommand('getCSSProperties', async (params) => {
   const node = figma.getNodeById(params.nodeId);
   if (!node) throw new Error(`Node not found: ${params.nodeId}`);
@@ -484,7 +484,7 @@ registerCommand('getCSSProperties', async (params) => {
 
 **Implementation:**
 ```javascript
-// In figmatic-plugin/code.ts
+// In faux-plugin/code.ts
 registerCommand('getInferredLayout', async (params) => {
   const node = figma.getNodeById(params.nodeId);
   if (!node) throw new Error(`Node not found: ${params.nodeId}`);
@@ -511,7 +511,7 @@ registerCommand('getInferredLayout', async (params) => {
 
 **Enhanced:** Return complete `boundVariables` including typography.
 
-**Changes to figmatic-plugin/code.ts:**
+**Changes to faux-plugin/code.ts:**
 ```javascript
 // In getNodeDetails command, enhance the boundVariables extraction:
 const getFullBoundVariables = (node) => {
@@ -729,9 +729,9 @@ get_css_properties({ nodeId: componentId })
 
 | File | Changes |
 |------|---------|
-| `figmatic-plugin/code.ts` | Add 4 new commands to Command Registry |
-| `figmatic-mcp-server/tools/read-tools.js` | Add 4 new tool handlers |
-| `figmatic-mcp-server/tools/schemas.js` | Add 4 new tool schemas |
+| `faux-plugin/code.ts` | Add 4 new commands to Command Registry |
+| `faux-mcp-server/tools/read-tools.js` | Add 4 new tool handlers |
+| `faux-mcp-server/tools/schemas.js` | Add 4 new tool schemas |
 | `faux-skills/skills/faux/skill.md` | Update workflow documentation |
 
 ### Command Registry Additions (code.ts)

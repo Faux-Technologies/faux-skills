@@ -9,7 +9,7 @@ description: |
   - "recreate from web", "copy from website", "extract from page"
   - "variants", "component set", "component properties"
   - "auto-layout", "responsive"
-  Requires Figmatic MCP connection to Figma Desktop.
+  Requires Faux MCP connection to Figma Desktop.
   For web extraction, also requires Faux DevTools MCP connection to browser.
 
 # Claude Code
@@ -32,136 +32,136 @@ allowed-tools:
   - mcp__faux-devtools__select_page
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Design System Tools
+  # FAUX MCP - Design System Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__get_design_system
-  - mcp__figmatic__create_variable
-  - mcp__figmatic__batch_create_variables
-  - mcp__figmatic__update_variable
-  - mcp__figmatic__delete_variable
-  - mcp__figmatic__bind_variable
-  - mcp__figmatic__batch_bind_variables
-  - mcp__figmatic__clone_with_variable_remap
-  - mcp__figmatic__apply_gradient_fill
+  - mcp__faux__get_design_system
+  - mcp__faux__create_variable
+  - mcp__faux__batch_create_variables
+  - mcp__faux__update_variable
+  - mcp__faux__delete_variable
+  - mcp__faux__bind_variable
+  - mcp__faux__batch_bind_variables
+  - mcp__faux__clone_with_variable_remap
+  - mcp__faux__apply_gradient_fill
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Typography Tools
+  # FAUX MCP - Typography Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__check_font_available
-  - mcp__figmatic__create_text_style
-  - mcp__figmatic__batch_create_text_styles
-  - mcp__figmatic__delete_text_style
-  - mcp__figmatic__create_text_node
+  - mcp__faux__check_font_available
+  - mcp__faux__create_text_style
+  - mcp__faux__batch_create_text_styles
+  - mcp__faux__delete_text_style
+  - mcp__faux__create_text_node
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Icon Tools
+  # FAUX MCP - Icon Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__search_icons
-  - mcp__figmatic__create_icon_component
-  - mcp__figmatic__batch_create_icons
+  - mcp__faux__search_icons
+  - mcp__faux__create_icon_component
+  - mcp__faux__batch_create_icons
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Component Creation Tools
+  # FAUX MCP - Component Creation Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__create_from_schema
-  - mcp__figmatic__create_auto_layout
-  - mcp__figmatic__create_component
-  - mcp__figmatic__convert_to_component
-  - mcp__figmatic__add_children
-  - mcp__figmatic__wrap_in_container
-  - mcp__figmatic__modify_node
-  - mcp__figmatic__clone_node
-  - mcp__figmatic__delete_node
-  - mcp__figmatic__rename_node
-  - mcp__figmatic__move_node
-  - mcp__figmatic__batch_move_nodes
-  - mcp__figmatic__align_nodes
-  - mcp__figmatic__reorder_children
+  - mcp__faux__create_from_schema
+  - mcp__faux__create_auto_layout
+  - mcp__faux__create_component
+  - mcp__faux__convert_to_component
+  - mcp__faux__add_children
+  - mcp__faux__wrap_in_container
+  - mcp__faux__modify_node
+  - mcp__faux__clone_node
+  - mcp__faux__delete_node
+  - mcp__faux__rename_node
+  - mcp__faux__move_node
+  - mcp__faux__batch_move_nodes
+  - mcp__faux__align_nodes
+  - mcp__faux__reorder_children
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Component Property Tools
+  # FAUX MCP - Component Property Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__add_component_property
-  - mcp__figmatic__edit_component_property
-  - mcp__figmatic__delete_component_property
-  - mcp__figmatic__bind_text_to_property
-  - mcp__figmatic__bind_property_reference
-  - mcp__figmatic__get_component_properties
-  - mcp__figmatic__get_instance_properties
-  - mcp__figmatic__set_instance_properties
-  - mcp__figmatic__batch_set_instance_properties
+  - mcp__faux__add_component_property
+  - mcp__faux__edit_component_property
+  - mcp__faux__delete_component_property
+  - mcp__faux__bind_text_to_property
+  - mcp__faux__bind_property_reference
+  - mcp__faux__get_component_properties
+  - mcp__faux__get_instance_properties
+  - mcp__faux__set_instance_properties
+  - mcp__faux__batch_set_instance_properties
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Variant Tools
+  # FAUX MCP - Variant Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__create_component_variants
-  - mcp__figmatic__add_variant_to_component_set
-  - mcp__figmatic__create_component_set_with_properties
-  - mcp__figmatic__get_component_variants
+  - mcp__faux__create_component_variants
+  - mcp__faux__add_variant_to_component_set
+  - mcp__faux__create_component_set_with_properties
+  - mcp__faux__get_component_variants
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Instance Tools
+  # FAUX MCP - Instance Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__create_instance
-  - mcp__figmatic__create_multiple_instances
-  - mcp__figmatic__swap_component
-  - mcp__figmatic__swap_instance_component
-  - mcp__figmatic__set_nested_instance_exposure
-  - mcp__figmatic__expose_nested_instance_by_path
-  - mcp__figmatic__get_nested_instance_tree
+  - mcp__faux__create_instance
+  - mcp__faux__create_multiple_instances
+  - mcp__faux__swap_component
+  - mcp__faux__swap_instance_component
+  - mcp__faux__set_nested_instance_exposure
+  - mcp__faux__expose_nested_instance_by_path
+  - mcp__faux__get_nested_instance_tree
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Layout Tools
+  # FAUX MCP - Layout Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__apply_responsive_pattern
-  - mcp__figmatic__validate_responsive_layout
-  - mcp__figmatic__copy_bindings
-  - mcp__figmatic__copy_all_properties
+  - mcp__faux__apply_responsive_pattern
+  - mcp__faux__validate_responsive_layout
+  - mcp__faux__copy_bindings
+  - mcp__faux__copy_all_properties
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Image Tools
+  # FAUX MCP - Image Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__import_image_from_url
-  - mcp__figmatic__apply_image_fill
-  - mcp__figmatic__batch_apply_images
-  - mcp__figmatic__create_image_component
-  - mcp__figmatic__batch_create_image_components
+  - mcp__faux__import_image_from_url
+  - mcp__faux__apply_image_fill
+  - mcp__faux__batch_apply_images
+  - mcp__faux__create_image_component
+  - mcp__faux__batch_create_image_components
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Query Tools
+  # FAUX MCP - Query Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__get_components
-  - mcp__figmatic__get_component_metadata
-  - mcp__figmatic__get_component_structure
-  - mcp__figmatic__get_node_details
-  - mcp__figmatic__get_page_structure
-  - mcp__figmatic__find_nodes_by_name
-  - mcp__figmatic__get_screenshot
+  - mcp__faux__get_components
+  - mcp__faux__get_component_metadata
+  - mcp__faux__get_component_structure
+  - mcp__faux__get_node_details
+  - mcp__faux__get_page_structure
+  - mcp__faux__find_nodes_by_name
+  - mcp__faux__get_screenshot
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Query Enhancement Tools (NEW)
+  # FAUX MCP - Query Enhancement Tools (NEW)
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__suggest_variable_bindings
-  - mcp__figmatic__get_text_segments
-  - mcp__figmatic__get_css_properties
-  - mcp__figmatic__get_inferred_layout
+  - mcp__faux__suggest_variable_bindings
+  - mcp__faux__get_text_segments
+  - mcp__faux__get_css_properties
+  - mcp__faux__get_inferred_layout
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Viewport & Status Tools
+  # FAUX MCP - Viewport & Status Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__set_viewport_center
-  - mcp__figmatic__get_viewport
-  - mcp__figmatic__scroll_to_node
-  - mcp__figmatic__scroll_to_nodes
-  - mcp__figmatic__show_status
-  - mcp__figmatic__clear_status
+  - mcp__faux__set_viewport_center
+  - mcp__faux__get_viewport
+  - mcp__faux__scroll_to_node
+  - mcp__faux__scroll_to_nodes
+  - mcp__faux__show_status
+  - mcp__faux__clear_status
 
   # ═══════════════════════════════════════════════════════════════
-  # FIGMATIC MCP - Advanced Tools
+  # FAUX MCP - Advanced Tools
   # ═══════════════════════════════════════════════════════════════
-  - mcp__figmatic__execute_workflow
-  - mcp__figmatic__discover_commands
-  - mcp__figmatic__execute_figma_script
+  - mcp__faux__execute_workflow
+  - mcp__faux__discover_commands
+  - mcp__faux__execute_figma_script
 
 # Codex
 metadata:

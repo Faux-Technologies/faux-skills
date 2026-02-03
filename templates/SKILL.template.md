@@ -22,11 +22,11 @@ description: |
 # Codex and OpenSkills ignore these fields
 allowed-tools:
   # Use wildcards for MCP tool groups
-  - mcp__figmatic__*
+  - mcp__faux__*
   - mcp__faux-devtools__*
   # Or list specific tools
-  # - mcp__figmatic__create_component
-  # - mcp__figmatic__get_design_system
+  # - mcp__faux__create_component
+  # - mcp__faux__get_design_system
 
 # === CODEX / OPENSKILLS SPECIFIC ===
 # Claude Code ignores these fields

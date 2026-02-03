@@ -105,7 +105,7 @@ description: |
 
 # Claude Code specific (Codex ignores)
 allowed-tools:
-  - mcp__figmatic__*
+  - mcp__faux__*
   - mcp__faux-devtools__*
 
 # Codex specific (Claude Code ignores)
@@ -122,7 +122,7 @@ metadata:
 
 ## Prerequisites
 
-- **Figmatic MCP Server**: Configured in your AI tool
+- **Faux MCP Server**: Configured in your AI tool
 - **Figma Desktop**: With "AI Agent Bridge" plugin running
 - **Node.js**: v18+ for CLI
 
@@ -193,8 +193,8 @@ Unknown fields are simply ignored by each platform, so you can include all field
 
 ## Related Projects
 
-- [Figmatic](https://github.com/faux-technologies/figmatic) - AI-powered Figma automation
-- [Figmatic MCP Server](https://github.com/faux-technologies/figmatic-mcp-server) - 63 Figma tools via MCP
+- [Faux](https://github.com/faux-technologies/faux) - AI-powered Figma automation
+- [Faux MCP Server](https://github.com/faux-technologies/faux-mcp-server) - 63 Figma tools via MCP
 - [OpenSkills](https://github.com/openskills-dev/openskills) - Universal skills loader
 
 ## License
