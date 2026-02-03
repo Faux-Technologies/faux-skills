@@ -87,9 +87,9 @@ Apply to all node types:
 }
 ```
 
-### AutoLayout (default type)
+### AutoLayout (default type) — ALWAYS USE THIS
 
-The default type when `type` is omitted.
+The default type when `type` is omitted. **Always prefer AutoLayout over plain Frames.**
 
 ```json
 {
@@ -105,9 +105,15 @@ The default type when `type` is omitted.
 
 `spacing: "auto"` maps to `justify: "space-between"`.
 
-### Frame
+**Why AutoLayout:**
+- Automatic spacing and alignment
+- Responsive sizing (hug-contents, fill-parent)
+- Proper constraint propagation
+- Predictable child arrangement
 
-Non-auto-layout container.
+### Frame (Avoid)
+
+Non-auto-layout container. **Avoid using plain Frames** — they require manual positioning and don't respond to content changes. Use AutoLayout instead.
 
 ```json
 {"type": "Frame", "width": 200, "height": 200, "fill": FILL, "children": []}

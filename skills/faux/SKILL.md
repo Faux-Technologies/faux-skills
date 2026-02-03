@@ -203,19 +203,28 @@ Key points:
 ### 2. Design System First
 Create variables and text styles BEFORE creating UI.
 
-### 3. Schema Over Imperative
+### 3. Always Use AutoLayout
+**Never use plain Frames. Always use AutoLayout.** AutoLayout provides:
+- Automatic spacing and alignment
+- Responsive resizing (hug-contents, fill-parent)
+- Proper constraint propagation
+- Predictable child arrangement
+
+Plain Frames require manual positioning and don't respond to content changes.
+
+### 4. Schema Over Imperative
 Prefer declarative `create_from_schema` over piecing together with multiple tool calls.
 
-### 4. Components for Reuse
+### 5. Components for Reuse
 Use `convertToComponent: true` when creating elements you'll reuse, then reference with `$instance`.
 
-### 5. Verify Variable Bindings
+### 6. Verify Variable Bindings
 After creating UI with `@Variable` syntax, verify with:
 ```
 get_node_details(nodeId, resolveBindings: true)
 ```
 
-### 6. Screenshots
+### 7. Screenshots
 `get_screenshot` auto-scales large frames:
 - Default format: JPG
 - Default maxWidth: 1200px
