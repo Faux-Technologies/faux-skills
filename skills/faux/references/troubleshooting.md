@@ -72,7 +72,12 @@ Common issues and how to fix them.
 
 **Symptoms**: Element doesn't expand to fill available space.
 
-**Cause**: Parent doesn't have a constraint.
+**Cause**: Parent doesn't have a constraint, or the propagation chain is broken.
+
+**The Dam Metaphor**: Think of constraints as water flow:
+- `fill-parent` = open channel (constraint flows through)
+- `hug-contents` = dam (constraint STOPS here)
+- Fixed value = reservoir (provides constraint)
 
 **Trace the chain**:
 ```
@@ -85,11 +90,19 @@ vs:
 
 ```
 Root (375px fixed) ✓
-  └── Container (hug-contents) ✗ no constraint
-        └── Item (fill-parent) ✗ FAILS
+  └── Container (hug-contents) ✗ DAM - constraint stops here
+        └── Item (fill-parent) ✗ FAILS - no constraint to fill
 ```
 
-**Fix**: Ensure every ancestor up to a fixed-size root has either a fixed size or `fill-parent`.
+**Fix**: Ensure every ancestor up to a fixed-size root has either a fixed size or `fill-parent`. One `hug-contents` in the chain breaks propagation.
+
+### Propagation Chain Debugging
+
+1. Start at the element that should respond
+2. Trace upward to the screen/root
+3. At each level, check: is it `fill-parent` for the target dimension?
+4. The first node that uses `hug-contents` is the breaking point
+5. Change that node to `fill-parent` or fixed
 
 ### Frame Stuck at Small Size
 
@@ -116,17 +129,25 @@ Root (375px fixed) ✓
 
 **Symptoms**: Text extends beyond its container.
 
-**Cause**: Missing or wrong `textAutoResize`.
+**Cause**: Text requires TWO conditions to respond to width. Neither alone is sufficient.
 
-**Fix**:
+| Condition | Without It |
+|-----------|------------|
+| Width constraint only | Text knows width but doesn't know to wrap → overflows |
+| textAutoResize only | Text knows to wrap but has no width limit → expands indefinitely |
+| **Both together** | Text wraps/truncates correctly |
+
+**Fix** (BOTH are required):
 ```json
 {
   "type": "Text",
-  "width": "fill-parent",
-  "textAutoResize": "HEIGHT",
+  "width": "fill-parent",      // Condition 1: width constraint
+  "textAutoResize": "HEIGHT",  // Condition 2: resize behavior
   "content": "Long text that should wrap..."
 }
 ```
+
+**Important**: Both conditions must be set at component creation time. Setting them per-instance is an anti-pattern.
 
 ### Text Style Not Applying
 

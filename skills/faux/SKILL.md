@@ -75,7 +75,14 @@ This is the most powerful tool. Use it for almost everything.
 | Fill parent | `"fill-parent"` |
 | Fixed size | number (pixels) |
 
-**Important**: For `fill-parent` to work, the parent must have a constraint (fixed or fill).
+**The Dam Metaphor**: Think of constraints as water flow:
+- `fill-parent` = open channel (constraint flows through)
+- `hug-contents` = **dam** (constraint STOPS here)
+- Fixed = reservoir (provides constraint)
+
+**Critical Rule**: For `fill-parent` to work, EVERY container in the chain must pass the constraint. One `hug-contents` breaks the chain.
+
+**Text Dual Requirement**: Text needs BOTH width constraint AND `textAutoResize: "HEIGHT"`. Neither alone works.
 
 ### Key Schema Syntax
 
@@ -201,8 +208,9 @@ get_node_details(nodeId, resolveBindings: true)
 | Symptom | Cause | Fix |
 |---------|-------|-----|
 | Frame stuck at 100px | Missing sizing | Add explicit width AND height |
-| fill-parent not working | Parent has no constraint | Ensure parent has fixed or fill |
-| Text overflowing | Missing textAutoResize | Add `textAutoResize: "HEIGHT"` |
+| fill-parent not working | Chain broken by hug-contents | Trace chain; every node must fill or be fixed |
+| Text overflowing | Missing BOTH requirements | Add width constraint AND `textAutoResize: "HEIGHT"` |
+| Internal element not responding | Propagation chain broken | Every container between boundary and element must fill |
 | Instance invisible | Fill cleared | Restore fill with modify_nodes |
 | Variable not binding | Wrong path | Check name exists in get_design_system |
 

@@ -4,21 +4,37 @@ Proper sizing is critical for Figma layouts. Understand these rules to avoid com
 
 ---
 
-## Size Primitive
+## The Core Question
 
-| Behavior | Declaration |
-|----------|-------------|
-| Fit to children | `"hug-contents"` |
-| Fill parent | `"fill-parent"` |
-| Fixed size | number (pixels) |
+For every container, for each dimension, ask:
+
+> "What determines this size?"
+
+| Answer | Sizing Mode | Declaration |
+|--------|-------------|-------------|
+| Its children | Hug | `"hug-contents"` |
+| Its parent | Fill | `"fill-parent"` |
+| A design constraint | Fixed | number (pixels) |
+
+**If you cannot answer this question, the design intent is unclear.**
 
 ---
 
-## The fill-parent Chain
+## The Dam Metaphor
 
-**Critical Rule**: For `fill-parent` to work, the parent must have a constraint (fixed or fill).
+Think of constraint propagation as water flow:
 
-### How Sizing Propagates
+- `fill-parent` = **open channel** (constraint flows through)
+- `hug-contents` = **dam** (constraint stops here)
+- Fixed value = **reservoir** (provides constraint, doesn't pass through)
+
+To get a constraint from the outside to an inner element, there must be an **unbroken channel** of `fill-parent` nodes.
+
+---
+
+## Constraint Propagation Chain (Critical)
+
+**For `fill-parent` to work, EVERY intermediate container must pass the constraint through.**
 
 Each node resolves its own size independently. A constraint on a parent node does NOT automatically propagate to children.
 
@@ -115,25 +131,31 @@ Control sizing boundaries:
 
 ---
 
-## Text Sizing
+## Text Sizing (Dual Requirement)
 
-Text has special sizing behavior:
+**Text responsiveness requires TWO conditions simultaneously. Neither alone is sufficient.**
 
-```json
-{
-  "type": "Text",
-  "content": "Hello World",
-  "textAutoResize": "WIDTH_AND_HEIGHT"  // default - text box fits content
-}
-```
+| Condition | Without It |
+|-----------|------------|
+| Width constraint only | Text knows width limit but overflows |
+| textAutoResize only | Text knows to wrap but expands indefinitely |
+| **Both together** | Text wraps/truncates correctly |
 
-Options:
-- `"WIDTH_AND_HEIGHT"` — Text box fits content exactly
-- `"HEIGHT"` — Width fixed, height adjusts to content
+### Configuration Matrix
+
+| Intended Behavior | Width | textAutoResize |
+|-------------------|-------|----------------|
+| Fixed, single line | `hug-contents` or fixed | (default) |
+| Wrap within available space | `fill-parent` or fixed | `HEIGHT` |
+| Truncate with ellipsis | `fill-parent` or fixed | + `truncate: [lines]` |
+
+### textAutoResize Options
+- `"WIDTH_AND_HEIGHT"` — Text box fits content exactly (default)
+- `"HEIGHT"` — Width fixed/fill, height adjusts to content
 - `"NONE"` — Fixed size, may clip
 - `"TRUNCATE"` — Fixed size, truncates with ellipsis
 
-For text that should fill horizontally:
+### Correct Pattern for Responsive Text
 ```json
 {
   "type": "Text",
@@ -142,6 +164,8 @@ For text that should fill horizontally:
   "content": "Long text that wraps..."
 }
 ```
+
+**Both properties must be set at component creation time.** Setting them after placement is an anti-pattern.
 
 ---
 
@@ -197,6 +221,58 @@ For text that should fill horizontally:
 
 ---
 
+## Component Sizing Strategy
+
+When creating components, design the internal structure to anticipate responsive contexts.
+
+### The Sizing Contract
+
+A component has an implicit "sizing contract" with its future contexts:
+
+| Contract Type | Boundary | Internal Structure |
+|---------------|----------|-------------------|
+| Fully self-contained | `hug × hug` | All elements hug or fixed |
+| Width-responsive | `fixed × hug` | Width chain uses fill, height hugs |
+| Height-responsive | `hug × fixed` | Height chain uses fill, width hugs |
+| Fully responsive | `fixed × fixed` | Both chains use fill |
+
+**The contract must be consistent**: internal structure must match boundary expectations.
+
+### Design-Time Questions
+
+For every element inside a component, ask:
+
+> "Could this element's width/height ever need to be determined by a context outside this component?"
+
+- If **yes**: That element AND every container between it and the boundary must use `fill-parent`
+- If **no**: The element can use `hug-contents` or fixed
+
+### Width-Responsive Component Pattern
+
+For components that should adapt to container width:
+
+```
+Component Boundary (fixed width default, will fill when instanced)
+├── Width: 300 (default, overridden to fill-parent when placed)
+├── Height: hug-contents
+│
+└── Container A (width: fill-parent)
+    └── Container B (width: fill-parent)
+        └── Text (width: fill-parent, textAutoResize: HEIGHT)
+```
+
+**Key**: Every node in the chain uses `fill-parent` for width.
+
+### Common Failure: Broken Chain
+
+**Symptom**: Parent provides width constraint, but internal element doesn't respond.
+
+**Cause**: An intermediate container uses `hug-contents`, breaking propagation.
+
+**Fix**: Audit the chain. Every node must use `fill-parent` for the constrained dimension.
+
+---
+
 ## Common Failures
 
 | Symptom | Cause | Fix |
@@ -205,6 +281,8 @@ For text that should fill horizontally:
 | fill-parent not working | Parent has no constraint | Ensure parent has fixed or fill |
 | Content overflowing | Child larger than parent | Add maxWidth to child or resize |
 | Text clipping | Fixed size without truncation | Use `textAutoResize: "HEIGHT"` or add `truncate: true` |
+| Text overflows despite fill-parent | Missing textAutoResize | Add BOTH width constraint AND `textAutoResize: "HEIGHT"` |
+| Unpredictable sizing | Circular reference | Boundary must provide fixed value for fill dimensions |
 
 ---
 
