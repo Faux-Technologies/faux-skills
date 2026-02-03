@@ -15,7 +15,7 @@
         "name": "Faux Technologies",
         "email": "support@faux.design"
       },
-      "source": ".",
+      "source": "..",
       "category": "design",
       "homepage": "https://faux.design",
       "keywords": ["figma", "design", "ui", "design-system", "atomic-design"]
