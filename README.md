@@ -60,17 +60,20 @@ npx skills add Faux-Technologies/faux-skills --list
 ### Skill Structure
 
 ```
-skills/faux/
-├── SKILL.md                 # Core methodology (280 lines)
-└── references/
-    ├── schema-syntax.md     # create_from_schema reference
-    ├── variable-bindings.md # @Variable syntax, multi-mode themes
-    ├── component-patterns.md # ComponentSet, $expose, variants
-    ├── sizing-rules.md      # hug-contents, fill-parent
-    ├── troubleshooting.md   # Common failures & fixes
-    ├── prototyping.md       # connect_nodes, animations
-    ├── query-selectors.md   # CSS selector syntax
-    └── tool-catalog.md      # All 71 tools
+plugins/faux/
+├── plugin.json              # Claude Code plugin manifest
+├── .mcp.json                # MCP server config
+└── skills/faux/
+    ├── SKILL.md             # Core methodology (280 lines)
+    └── references/
+        ├── schema-syntax.md     # create_from_schema reference
+        ├── variable-bindings.md # @Variable syntax, multi-mode themes
+        ├── component-patterns.md # ComponentSet, $expose, variants
+        ├── sizing-rules.md      # hug-contents, fill-parent
+        ├── troubleshooting.md   # Common failures & fixes
+        ├── prototyping.md       # connect_nodes, animations
+        ├── query-selectors.md   # CSS selector syntax
+        └── tool-catalog.md      # All 71 tools
 ```
 
 ## Prerequisites
@@ -99,9 +102,9 @@ If you prefer manual installation:
 git clone https://github.com/Faux-Technologies/faux-skills.git
 
 # Copy to your agent's skills directory
-cp -r faux-skills/skills/faux ~/.claude/skills/     # Claude Code
-cp -r faux-skills/skills/faux ~/.codex/skills/      # Codex
-cp -r faux-skills/skills/faux .cursor/skills/       # Cursor (project-local)
+cp -r faux-skills/plugins/faux/skills/faux ~/.claude/skills/     # Claude Code
+cp -r faux-skills/plugins/faux/skills/faux ~/.codex/skills/      # Codex
+cp -r faux-skills/plugins/faux/skills/faux .cursor/skills/       # Cursor (project-local)
 ```
 
 ## The Faux Workflow
