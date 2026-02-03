@@ -1,0 +1,6 @@
+{
+  "faux": {
+    "type": "http",
+    "url": "https://mcp.faux.design/mcp"
+  }
+}

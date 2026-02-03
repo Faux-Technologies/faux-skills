@@ -1,0 +1,14 @@
+{
+  "name": "faux",
+  "version": "5.0.0",
+  "description": "AI-powered Figma design with 71 tools. Create components, design systems, and production-quality screens using Atomic Design methodology. Connects to mcp.faux.design for real-time Figma canvas control.",
+  "author": {
+    "name": "Faux Technologies",
+    "email": "support@faux.design",
+    "url": "https://faux.design"
+  },
+  "homepage": "https://faux.design",
+  "repository": "https://github.com/Faux-Technologies/faux-skills",
+  "license": "MIT",
+  "keywords": ["figma", "design", "ui", "design-system", "atomic-design", "mcp", "components"]
+}

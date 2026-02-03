@@ -2,7 +2,26 @@
 
 AI agent skills for Figma design automation. Works with **Claude Code**, **Codex**, **Cursor**, **Windsurf**, and any platform supporting the [Agent Skills Specification](https://agentskills.io).
 
-## Quick Install
+## Claude Code Plugin (Recommended)
+
+The easiest way to install — bundles the skill AND MCP server configuration:
+
+```bash
+# Add the Faux marketplace
+/plugin marketplace add Faux-Technologies/faux-skills
+
+# Install the plugin
+/plugin install faux@faux-marketplace
+```
+
+This gives you:
+- The Faux skill with Atomic Design methodology
+- MCP server auto-configured to `mcp.faux.design`
+- All 71 Figma design tools
+
+## Alternative: Skills CLI
+
+For other AI agents (Codex, Cursor, etc.):
 
 ```bash
 npx skills add Faux-Technologies/faux-skills

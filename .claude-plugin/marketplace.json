@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "faux-marketplace",
+  "description": "AI-powered Figma design tools by Faux Technologies",
+  "owner": {
+    "name": "Faux Technologies",
+    "email": "support@faux.design"
+  },
+  "plugins": [
+    {
+      "name": "faux",
+      "description": "AI-powered Figma design with 71 tools. Create components, design systems, and production-quality screens using Atomic Design methodology.",
+      "version": "5.0.0",
+      "author": {
+        "name": "Faux Technologies",
+        "email": "support@faux.design"
+      },
+      "source": ".",
+      "category": "design",
+      "homepage": "https://faux.design",
+      "keywords": ["figma", "design", "ui", "design-system", "atomic-design"]
+    }
+  ]
+}
